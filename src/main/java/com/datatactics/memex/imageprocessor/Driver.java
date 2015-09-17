@@ -1,4 +1,4 @@
-package com.datatactics.memex.mimetype;
+package com.datatactics.memex.imageprocessor;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -6,7 +6,6 @@ import java.util.Calendar;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
-import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
@@ -16,7 +15,7 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.apache.log4j.Logger;
 
-import com.datatactics.memex.merge.ImageTablesMergeReducer;
+import com.datatactics.memex.io.PairWritable;
 import com.datatactics.memex.util.ImagesColumnNames;
 
 public class Driver extends Configured implements Tool {
@@ -29,11 +28,8 @@ public class Driver extends Configured implements Tool {
 		final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy HH:mm");
 
 		// Construct the Job name, using Date to help easily find in JT
-		StringBuilder jobName = new StringBuilder("Image MimeType: ");
+		StringBuilder jobName = new StringBuilder("Image Analyizer: ");
 		jobName.append(dateFormat.format(cal.getTime()));
-
-		// Path to save the S3 Images
-		Path dataPath = new Path(args[0]);
 
 		Configuration conf = getConf();
 		log.info("zookeepers = " + conf.get("hbase.zookeeper.quorum"));
@@ -59,10 +55,11 @@ public class Driver extends Configured implements Tool {
 		}
 		
 		// Input
-		TableMapReduceUtil.initTableMapperJob(conf.get("hbase.table.name"), scan, MimeTypeMapper.class,
-				Text.class, Text.class, job);
+		TableMapReduceUtil.initTableMapperJob(conf.get("hbase.table.name"), scan, ImageAnalysisMapper.class,
+				Text.class, PairWritable.class, job);
 
-		TableMapReduceUtil.initTableReducerJob(conf.get("hbase.table.name"), MimeTypeReducer.class, job);
+		// Output
+		TableMapReduceUtil.initTableReducerJob(conf.get("hbase.table.name"), ImageAnalysisReducer.class, job);
 
 		// Set the standard reduce tasks
 		job.setNumReduceTasks(Integer.parseInt(conf.get("mapred.reduce.tasks", "20")));

@@ -1,4 +1,4 @@
-package com.datatactics.memex.mimetype;
+package com.datatactics.memex.imageprocessor;
 
 import static com.datatactics.memex.util.ImagesColumnNames.META_FAMILY;
 import static com.datatactics.memex.util.ImagesColumnNames.MIMETYPE_QUALIFIER;
@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 
 import com.datatactics.examples.HBaseReducer;
 
-public class MimeTypeReducer extends TableReducer<ImmutableBytesWritable, Text, Text> 
+public class ImageAnalysisReducer extends TableReducer<ImmutableBytesWritable, Text, Text> 
 {
     private static final Logger log = Logger.getLogger(HBaseReducer.class);
 

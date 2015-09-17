@@ -1,4 +1,4 @@
-package com.datatactics.memex.mimetype;
+package com.datatactics.memex.imageprocessor;
 
 import static com.datatactics.memex.util.ImagesColumnNames.IMAGE_FAMILY;
 import static com.datatactics.memex.util.ImagesColumnNames.IMAGE_QUALIFIER;
@@ -15,13 +15,18 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.Text;
 import org.apache.log4j.Logger;
 
+import com.datatactics.memex.io.PairWritable;
 import com.datatactics.memex.util.RecordCounter;
 
-public class MimeTypeMapper extends TableMapper<Text, Text> {
-	private static final Logger log = Logger.getLogger(MimeTypeMapper.class);
+public class ImageAnalysisMapper extends TableMapper<Text, PairWritable> {
+	private static final Logger log = Logger.getLogger(ImageAnalysisMapper.class);
 
+	private ImageProcessor analyizer;
+	
 	@Override
-	protected void setup(Context context) {
+	protected void setup(Context context) 
+	{
+		this.analyizer = new ImageProcessor();
 	}
 
 	public void map(ImmutableBytesWritable rowId, Result value, Context context) throws IOException {
@@ -37,9 +42,18 @@ public class MimeTypeMapper extends TableMapper<Text, Text> {
 			if ((image != null) && (image.length > 0))	{
 				context.getCounter(RecordCounter.IMAGE_SUCCESS).increment(1);
 
-				// Now let's see if we can determine the mimetype
+				// Now let's see if we can analyize this image
+				PairWritable analysisBtyes = analyizer.process(image);
 				
-				
+				// Save it out
+				Text keyText = new Text(rowId.get());
+				try {
+					context.write(keyText, analysisBtyes);
+					context.getCounter(RecordCounter.IMAGE_ANALYIZED).increment(1);
+				} catch (InterruptedException e) {
+					log.error("Couldn't write from mapper", e);
+					context.getCounter(RecordCounter.HADOOP_WRITE_ERROR).increment(1);
+				}
 			}
 			else {
 				log.warn(Bytes.toString(rowId.get()) + " missing image");

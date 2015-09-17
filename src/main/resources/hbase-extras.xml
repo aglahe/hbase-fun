@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+		<name>hbase.table.name</name>
+		<value>aaron_memex_ht-images</value>
+	</property>
+
+  <property>
+		<name>orig.hbase.table.name</name>
+		<value>aaron-roxyscrape-metadata</value>
+	</property>
+	<property>
+		<name>final.hbase.table.name</name>
+		<value>aaron-roxyscrape-images</value>
+	</property>
+  
+<!--
+	<property>
+		<name>hbase.startrow</name>
+		<value>1</value>
+	</property>
+	<property>
+		<name>hbase.stoprow</name>
+		<value>20000000</value>
+	</property>
+ -->
+	<property>
+		<name>mapred.reduce.tasks</name>
+		<value>120</value>
+	</property>
+</configuration>

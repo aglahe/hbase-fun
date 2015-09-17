@@ -21,12 +21,12 @@ import com.datatactics.memex.util.RecordCounter;
 public class ImageAnalysisMapper extends TableMapper<Text, PairWritable> {
 	private static final Logger log = Logger.getLogger(ImageAnalysisMapper.class);
 
-	private ImageAnalyizer analyizer;
+	private ImageAnalyzer analyizer;
 	
 	@Override
 	protected void setup(Context context) 
 	{
-		this.analyizer = new ImageAnalyizer();
+		this.analyizer = new ImageAnalyzer();
 	}
 
 	public void map(ImmutableBytesWritable rowId, Result value, Context context) throws IOException {
@@ -43,7 +43,7 @@ public class ImageAnalysisMapper extends TableMapper<Text, PairWritable> {
 				context.getCounter(RecordCounter.IMAGE_SUCCESS).increment(1);
 
 				// Now let's see if we can analyize this image
-				PairWritable analysisBtyes = analyizer.analyize(image);
+				PairWritable analysisBtyes = analyizer.analyze(image);
 				
 				// Save it out
 				Text keyText = new Text(rowId.get());

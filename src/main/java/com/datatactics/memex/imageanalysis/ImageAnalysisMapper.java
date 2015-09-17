@@ -49,7 +49,7 @@ public class ImageAnalysisMapper extends TableMapper<Text, PairWritable> {
 				Text keyText = new Text(rowId.get());
 				try {
 					context.write(keyText, analysisBtyes);
-					context.getCounter(RecordCounter.IMAGE_ANALYIZED).increment(1);
+					context.getCounter(RecordCounter.IMAGE_ANALYZED).increment(1);
 				} catch (InterruptedException e) {
 					log.error("Couldn't write from mapper", e);
 					context.getCounter(RecordCounter.HADOOP_WRITE_ERROR).increment(1);

@@ -1,4 +1,4 @@
-package com.datatactics.memex.imageprocessor;
+package com.datatactics.memex.imageanalysis;
 
 import static com.datatactics.memex.util.ImagesColumnNames.META_FAMILY;
 import static com.datatactics.memex.util.ImagesColumnNames.MIMETYPE_QUALIFIER;

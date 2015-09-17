@@ -1,4 +1,4 @@
-package com.datatactics.memex.imageprocessor;
+package com.datatactics.memex.imageanalysis;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

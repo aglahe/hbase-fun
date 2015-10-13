@@ -22,9 +22,10 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<hadoop.version>2.6.0-cdh5.4.5</hadoop.version>
-		<hbase.version>1.0.0-cdh5.4.5</hbase.version>
-		<zookeeper.version>3.4.5-cdh5.4.5</zookeeper.version>
+		<hadoop.version>2.6.0-cdh5.4.7</hadoop.version>
+		<hbase.version>1.0.0-cdh5.4.7</hbase.version>
+		<zookeeper.version>3.4.5-cdh5.4.7</zookeeper.version>
+		<avro.version>1.7.6-cdh5.4.7</avro.version>
 	</properties>
 
 	<build>
@@ -73,12 +74,12 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
-			<version>1.10.2</version>
+			<version>1.10.26</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.avro</groupId>
 			<artifactId>avro-mapred</artifactId>
-			<version>1.7.6-cdh5.4.1</version>
+			<version>${avro.version}</version>
 		</dependency>
 
 		<dependency>

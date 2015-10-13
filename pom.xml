@@ -2,9 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.datatactics</groupId>
-	<artifactId>hbase-test</artifactId>
+	<artifactId>memex-hbase-tools</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hbase-test</name>
+	<name>memex-hbase-tools</name>
 	<description>hbase map reduce</description>
 
 	<repositories>

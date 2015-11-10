@@ -25,6 +25,7 @@ public class AdsIdMapper extends TableMapper<BytesWritable, ImmutableBytesWritab
 		context.getCounter(RecordCounter.ATTEMPTS).increment(1);
 
 		byte[] adsIdBytes = value.getValue(META_FAMILY, ADS_ID_QUALIFIER);
+
 		if ((adsIdBytes != null) && (adsIdBytes.length > 0))	{
 			context.getCounter(RecordCounter.ADS_ID_EXISTS).increment(1);
 			BytesWritable adId = new BytesWritable(adsIdBytes);

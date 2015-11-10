@@ -11,6 +11,6 @@ public class ImagesColumnNames {
 	public static final byte[] MIMETYPE_QUALIFIER= "mimetype".getBytes();
 	public static final byte[] ADS_ID_QUALIFIER= "ads_id".getBytes();
 
-	public static final byte[] ADS_ID_FAMILY= "ads_id".getBytes();
+	public static final byte[] IMAGE_ID_FAMILY= "image_id".getBytes();
 
 }

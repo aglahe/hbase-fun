@@ -1,12 +1,12 @@
 package com.datatactics.examples;
 
-import java.io.IOException;
-
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapper;
 import org.apache.hadoop.io.Text;
 import org.apache.log4j.Logger;
+
+import java.io.IOException;
 
 public class HBaseMapper extends TableMapper<ImmutableBytesWritable, Text> 
 {
@@ -30,7 +30,7 @@ public class HBaseMapper extends TableMapper<ImmutableBytesWritable, Text>
 
     	// Set the size
     	log.info("Image size = " + size);
-    	imageSize.set(Integer.toString(size));;
+    	imageSize.set(Integer.toString(size));
     	
     	try 
     	{

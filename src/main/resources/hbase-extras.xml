@@ -8,7 +8,12 @@
 		<name>hbase.table.name</name>
 		<value>aaron_memex_ht-images</value>
 	</property>
+  <property>
+		<name>hbase.index.table.name</name>
+		<value>aaron_memex_ht_ads-id-index</value>
+	</property>
 
+<!--
   <property>
 		<name>orig.hbase.table.name</name>
 		<value>aaron-roxyscrape-metadata</value>
@@ -17,8 +22,6 @@
 		<name>final.hbase.table.name</name>
 		<value>aaron-roxyscrape-images</value>
 	</property>
-  
-<!--
 	<property>
 		<name>hbase.startrow</name>
 		<value>1</value>
@@ -28,6 +31,7 @@
 		<value>20000000</value>
 	</property>
  -->
+ 
 	<property>
 		<name>mapred.reduce.tasks</name>
 		<value>120</value>

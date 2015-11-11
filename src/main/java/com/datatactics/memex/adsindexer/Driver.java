@@ -10,7 +10,7 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
-import org.apache.hadoop.io.BytesWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
@@ -58,7 +58,7 @@ public class Driver extends Configured implements Tool {
 		
 		// Input
 		TableMapReduceUtil.initTableMapperJob(conf.get("hbase.table.name"), scan, AdsIdMapper.class,
-				BytesWritable.class, ImmutableBytesWritable.class, job);
+				ImmutableBytesWritable.class, ImmutableBytesWritable.class, job);
 
 		// See if we need to make the index table
 		String indexTableName = conf.get("hbase.index.table.name");

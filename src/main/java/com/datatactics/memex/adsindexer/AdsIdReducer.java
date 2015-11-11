@@ -5,13 +5,12 @@ import java.io.IOException;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableReducer;
-import org.apache.hadoop.io.BytesWritable;
 import org.apache.log4j.Logger;
 
 import com.datatactics.memex.util.ImagesColumnNames;
 import com.datatactics.memex.util.RecordCounter;
 
-public class AdsIdReducer extends TableReducer<BytesWritable, ImmutableBytesWritable, ImmutableBytesWritable> 
+public class AdsIdReducer extends TableReducer<ImmutableBytesWritable, ImmutableBytesWritable, ImmutableBytesWritable> 
 {
     private static final Logger log = Logger.getLogger(AdsIdReducer.class);
 
@@ -23,9 +22,9 @@ public class AdsIdReducer extends TableReducer<BytesWritable, ImmutableBytesWrit
     }
 
     @Override
-    protected void reduce(BytesWritable adId, Iterable<ImmutableBytesWritable> values, Context context) throws IOException
+    protected void reduce(ImmutableBytesWritable adId, Iterable<ImmutableBytesWritable> values, Context context) throws IOException
     {
-		Put put = new Put(adId.getBytes());
+		Put put = new Put(adId.copyBytes());
     	for (ImmutableBytesWritable val : values)
 		{
 			put.addColumn(ImagesColumnNames.IMAGE_ID_FAMILY, val.copyBytes(), new byte[0]);
@@ -36,7 +35,7 @@ public class AdsIdReducer extends TableReducer<BytesWritable, ImmutableBytesWrit
 			}
 			catch (InterruptedException e) 
 			{
-				log.error("Record - " + new String(adId.getBytes()) + " - was bad, issue Writing to main table in Reducer: ", e);
+				log.error("Record - " + new String(adId.get()) + " - was bad, issue Writing to main table in Reducer: ", e);
 				context.getCounter(RecordCounter.HBASE_ERROR).increment(1);
 			}
 		}

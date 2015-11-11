@@ -9,12 +9,11 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapper;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.io.BytesWritable;
 import org.apache.log4j.Logger;
 
 import com.datatactics.memex.util.RecordCounter;
 
-public class AdsIdMapper extends TableMapper<BytesWritable, ImmutableBytesWritable> {
+public class AdsIdMapper extends TableMapper<ImmutableBytesWritable, ImmutableBytesWritable> {
 	private static final Logger log = Logger.getLogger(AdsIdMapper.class);
 
 	@Override
@@ -28,7 +27,7 @@ public class AdsIdMapper extends TableMapper<BytesWritable, ImmutableBytesWritab
 
 		if ((adsIdBytes != null) && (adsIdBytes.length > 0))	{
 			context.getCounter(RecordCounter.ADS_ID_EXISTS).increment(1);
-			BytesWritable adId = new BytesWritable(adsIdBytes);
+			ImmutableBytesWritable adId = new ImmutableBytesWritable(adsIdBytes);
 			try {
 				context.write(adId, rowId);
 			} catch (InterruptedException e) {
